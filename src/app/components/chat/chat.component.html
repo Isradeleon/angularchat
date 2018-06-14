@@ -1,0 +1,19 @@
+<ol class="chat">
+  <li *ngFor="let message of messages" class="{{ isMyMessage(message.senderid) ? 'self' : 'other' }}">
+    <div class="msg">
+      <div *ngIf="!isMyMessage(message.senderid)" class="user">{{ message.sendername }}<!--span class="range admin">Admin</span--></div>
+      <p>{{ message.text }}</p>
+      <time>
+        {{ message.created_at }}
+      </time>
+    </div>
+  </li>
+</ol>
+
+<div class="typezone">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <textarea [(ngModel)]="text" [ngModelOptions]="{standalone:true}" type="text" placeholder="Say something"></textarea>
+    <input type="submit" class="send" value="" [disabled]="sendingMsg"/>
+  </form>
+  <div class="emojis"></div>
+</div>

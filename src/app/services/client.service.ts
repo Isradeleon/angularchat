@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ClientService {
-  private serverUrl: string = 'http://localhost:3333/';
+  private serverUrl: string = 'http://192.168.50.34:3333/';
 
   constructor(private http: HttpClient) { }
 

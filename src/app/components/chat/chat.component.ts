@@ -11,8 +11,7 @@ import Ws from '@adonisjs/websocket-client';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  ws = Ws('ws://localhost:3333');
-  chat;
+  ws = Ws('ws://192.168.50.34:3333');
 
   sendingMsg: boolean = false;
   
@@ -27,13 +26,6 @@ export class ChatComponent implements OnInit {
       this.messages = res.messages;
 
       this.setUpChat();
-      /*this.ws.connect();
-      this.chat = this.ws.subscribe('chat');
-
-      this.chat.on('ready', () => {
-        console.log('readyyyyyyy')
-        this.chat.emit('message', 'hello');
-      });*/
     });
   }
 
@@ -43,14 +35,9 @@ export class ChatComponent implements OnInit {
 
   setUpChat(){
     this.ws.connect();
-    this.chat = this.ws.subscribe('chat');
+    const chat = this.ws.subscribe('chat');
 
-    /*this.chat.on('ready', () => {
-      console.log('readyyyyyyy')
-      this.chat.emit('message', 'hello');
-    });*/
-
-    this.chat.on('new:message', (data) => {
+    chat.on('new:message', (data) => {
 
       console.log(' HOLAAA SOY UN MENSAJE ')
 
@@ -79,7 +66,7 @@ export class ChatComponent implements OnInit {
           const emiter = this.ws.getSubscription('chat');
           if(emiter){
             emiter.emit('message:added', JSON.stringify(res.created));
-          }
+          } 
         }
       }, err => {
         this.sendingMsg = false;
